@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>高雄市郵遞區號</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="jQuery+Ajax+PHP+MySQL sample code">
+	<meta name="author" content="THS">
+	<meta name="keywords" content="jQuery, Ajax, PHP, MySQL">
+	<style>
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			text-align: center;
+		};
+	</style>
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			// "載入資料"按鈕事件
+			$("#load").click(function(){
+				$.ajax({
+					url: "http://120.119.80.13/~u112/ajax1.1.php",
+					dataType: 'json',
+					success: function(result){
+						var tab = "<table>";
+						tab += "<caption>高雄市行政區</caption>";
+						tab += "<tr><th>序號</th><th>商品名稱</th><th>價錢</th><th>圖檔名稱</th><th>顯示圖片</th></tr>";
+						$.each(result, function(index, value){
+							tab += "<tr><td>" + index + "</td><td>" + value[0] + "</td><td>" + value[1] + "</td><td>" + value[2] + "</td><td><img src=\"" + value[2] + "\" alt=\"\"></td></tr>";
+						});
+						tab += "</table>";
+						$("body").append(tab);
+					}
+				});
+			});
+			
+			// "移除資料"按鈕事件
+			$("#remove").click(function(){
+				$("table").remove();
+			});
+			// "上傳資料"按鈕事件
+			$("#submit").click(function(){
+				var z=$("#zip").val();
+				var na=$("#name").val();
+				alert("z="+z+","+"na="+na);
+				$.post("http://120.119.80.13/~u112/insert.php",
+					{
+					zip:z, name:na
+					},
+					function(data,status){
+					alert("Data: " + data + "\nStatus: " + status);
+					});
+});
+		});
+	</script>
+</head>
+<body>
+
+
+	<label>區號</label>
+	<input id="zip" type="text">
+	<label>區名</label>
+	<input id="name" type="text">
+	<button id="submit" type="button">傳送</button>
+	<button id="load" type="button">載入資料</button>
+	<button id="remove" type="button">移除資料</button>
+</body>
+</html>

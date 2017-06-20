@@ -1,0 +1,143 @@
+﻿<html>
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="jQuery+Ajax+PHP+MySQL sample code">
+<meta name="author" content="THS">
+<meta http-equiv="refresh" content="2;url='printscreen.html'">
+<title>列印畫面</title>
+<style type="text/css">
+.PrintDin{
+font-size:25px;
+}
+.PrintSn{
+font-size:25px;
+}
+.Shop1{
+font-size:15px;
+}
+
+
+
+</style>
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script> 
+
+	$(function(){
+	$.ajax({
+		url:"http://120.119.80.13/~u112/Print.php",
+		dataType: 'json',
+		success: function(result){
+			var array1=result[0];
+			var array2=result[1];
+			for(var i=0;i<array1.length;i++)
+			{
+				
+				var din = array1[i][0];
+				var printsn= array1[i][1];
+				var total = array1[i][3];
+				$("#PrintDin").append(din);
+				$("#PrintSn").append(printsn);
+				$("#total").append(total);
+				var tab1 = "<table>";
+				var tab2="<table>";
+				var tab3="<table>";
+				
+				for(var j=0;j<array2.length;j++)
+				{
+					if(din==array2[j][0])
+						{
+									
+								if(array1[i][2]==0)
+								{
+									var id=din;
+									$("#PrintDin").html("訂單編號："+din);
+									$("#PrintSn").html("商家名稱："+printsn);
+									$("#total").html("總金額："+total);
+									tab1 += "<tr><td>" + array2[j][1] + "</td></tr>";	
+									tab2 +="<tr><td>"+ array2[j][2] + "</td></tr>";
+									tab3 +="<tr><td>"+ array2[j][3] + "</td></tr>";
+									
+									
+									$("#Shop1").html("");
+									$("#Shop2").html("");
+									$("#Shop3").html("");
+									window.location.assign("http://120.119.80.13/~u112/printupdate.php?ID="+id);
+								}
+						}
+				
+				
+				
+				
+				}
+				tab1 += "</table>";
+				tab2 += "</table>";
+				tab3 += "</table>";
+				$("#Shop1").append(tab1);
+				$("#Shop2").append(tab2);
+				$("#Shop3").append(tab3);
+				
+				$(document).ready(function() {
+				var value = block.innerHTML;
+				var printPage = window.open("","printPage","");
+				printPage.document.open();
+				printPage.document.write("<HTML><head></head><BODY onload='window.print();window.close()'>");
+				printPage.document.write("<PRE>");
+				printPage.document.write(value);
+				printPage.document.write("</PRE>");
+				printPage.document.close("</BODY></HTML>");
+				});
+
+			}
+			
+	
+	
+	
+		}
+	});
+
+
+	});
+
+
+
+</script>
+</head>
+<body>
+<div  height="100%" width="100%" align="center" id="block" >
+
+
+  
+
+        
+	<table style="height:40%;width:50%;" border="1" rules="none" align="center" > <!--原A4大小高:1123 寬:794-->
+		<tr height="8%" align="left">  <!--訂單編號-->
+			<td colspan="3" id="PrintDin" class="PrintDin">訂單編號：</td>
+		</tr>
+		<tr height="8%"><!--商家名稱-->
+			<td colspan="3" id="PrintSn" class="PrintSn">商家名稱：</td>
+		</tr>
+		<tr height="4%">  <!--單位-->
+			<td id="ProductName"><span style="font-size:20px">商品名稱：</span></td>
+			<td id="SinglePrice" width="25%"><span style="font-size:20px">單價：</span></td>
+			<td id="Quantity" width="25%"><span style="font-size:20px">數量：</span></td>
+		</tr>
+		<tr height="80%" valign="top" ><!--點餐明細-->
+			<td  id="Shop1" width="50%" class="Shop1"></td><td  id="Shop2" width="25%" class="Shop1"></td><td  id="Shop3" width="25%" class="Shop1"></td>
+		</tr>
+		<tr>
+		<td id="total" colspan="3" align="right">總金額：</td>
+		</tr>
+	</table>
+
+	
+
+
+
+
+</div>
+
+
+
+
+</body>
+</html>

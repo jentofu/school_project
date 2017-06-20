@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<plugin id="tw.edu.stu.mis.ths">
+    <name>MYTEST</name>
+    <category>TEST</category>
+    <description>MYPLUGIN TEST</description>
+    <author email="rd@transtep.com" href="http://www.transtep.com">Transtep RD Team</author>
+    <serviceurl href="assets://index.html"/>
+    <preference name="alwaysontop" value="true"/>
+    <preference name="position" value="100,0,1000,600"/>
+    <preference name="bgcolor" value="white"/>
+    <preference name="fullscreen" value="true"/>
+    <preference name="opacity" value="1"/>
+    <preference name="z-index" value="100"/>
+    <preference name="display" value="true"/>
+    <preference name="movable" value="true"/>
+    <preference name="disable" value="false"/>
+		<preference name="idleplayer_time" value="0"/>
+    <feature name="plugin" value="feature.transtep.plugin"/>
+    <feature name="data" value="feature.transtep.data"/>
+    <feature name="system" value="feature.transtep.system"/>
+</plugin>

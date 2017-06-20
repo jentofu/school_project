@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>高雄市郵遞區號</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="jQuery+Ajax+PHP+MySQL sample code">
+	<meta name="author" content="THS">
+	<meta name="keywords" content="jQuery, Ajax, PHP, MySQL">
+	<STYLE TYPE="text/css">
+	.ASS {
+	width: 312.5px;
+	height: 100px;
+	}
+	.ASS2
+	{
+	background-color:yellow;
+	width: 312.5px;
+	height: 400px;
+	}
+	.ASS3
+	{
+	background-color:#00DD00;
+	width:312.5px
+	height:400px;
+	}
+	table
+	{
+	width:100%;
+	}
+	
+	th
+	{
+	text-align:left;
+	width:50%;
+	}
+	
+
+</STYLE>
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script>
+
+			
+			
+			
+			$(function(){
+				$("button").attr("disabled",true);
+				$.ajax({
+					url: "http://120.119.80.13/~u112/ajaxcooknamemount .php",
+					dataType: 'json',
+					success: function(result){
+						var array1 = result[0];
+						var array2 = result[1];
+						for(var i=0;i<array1.length;i++)
+						{
+							var din =array1[i][0];
+							$("#ben"+(i+1)).append("<br>"+din);
+							$("#ben"+(i+1)).find("button").attr("id",din);
+							$("#ben"+(i+1)).find("button").attr("disabled",false);
+							var tab = "<table>";
+							tab += "<tr><th>商品名稱</th><th>數量</th></tr>";
+							
+							for(var j=0;j<array2.length;j++)
+							{
+							
+								if(din==array2[j][0])
+								{
+									
+									
+									
+									tab += "<tr><td>" + array2[j][1] + "</td><td>" + array2[j][2] + "</td></tr>";
+								
+									
+								}
+							}
+							tab += "</table>";
+							$("#din"+(i+1)).append(tab);
+						}
+						
+						
+						var tab = "<table>";
+						
+						
+						tab += "<caption>取出 商品編號</caption>";
+						tab += "<tr><th>訂單編號</th><</tr>";
+						
+						
+												//index 必備參數 value必備吧?
+						$.each(result[0], function(index,value){
+							tab += "<tr><td>" + value[0] + "</td></tr>";
+						});
+						
+						
+						
+						tab += "</table>";
+						$("body").append(tab);
+						
+						//dived
+						
+						tab = "<table>";
+						
+					
+						tab += "<caption>取出 商品編號 商品名稱 數量</caption>";
+						tab += "<tr><th>訂單編號</th><th>商品名稱</th><th>數量</th></tr>";
+						
+						
+												//index 必備參數 value必備吧?
+						$.each(result[1], function(index,value){
+							tab += "<tr><td>" + value[0] + "</td><td>" + value[1] + "</td><td>" + value[2] + "</td></tr>";
+						});
+						
+						
+						
+						tab += "</table>";
+						$("body").append(tab);
+						
+						
+						
+						
+						
+					}
+				});
+				$("button").click(function(){
+					var id =$(this).attr("id");
+					window.location.assign("http://120.119.80.13/~u112/update1.php?ID="+id);
+					
+				});
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+					
+	</script>
+</head>
+<body>
+<div width="100%" height="100%">
+<table width="1250" height="1000" border="1"> 
+	<tr>
+		<td id="ben1" class="ASS" bgcolor="yellow" ><button>送出餐點</button></td><td  id="ben2" bgcolor="#00DD00" class="ASS"><button>送出餐點</button></td><td id="ben3" bgcolor="yellow" class="ASS"><button>送出餐點</button></td><td id="ben4" bgcolor="#00DD00" class="ASS"><button>送出餐點</button></td>
+	</tr>
+	
+	
+	
+	<tr valign="top">
+		<td id="din1" class="ASS2"></td><td id="din2" class="ASS3"></td><td id="din3" class="ASS2"></td><td id="din4" class="ASS3"></td>
+		
+	</tr> 
+	
+	
+	
+	
+	
+	<tr>
+		<td id="ben5" bgcolor="#00DD00" class="ASS"><button>送出餐點</button></td><td id="ben6" bgcolor="yellow" class="ASS"><button>送出餐點</button></td><td id="ben7" bgcolor="#00DD00" class="ASS"><button>送出餐點</button></td><td id="ben8" bgcolor="yellow" class="ASS" ><button>送出餐點</button></td>
+	</tr>
+	
+	
+	
+	
+	<tr valign="top">
+		<td id="din5"  class="ASS3"></td><td id="din6" class="ASS2"></td><td id="din7" class="ASS3"></td><td id="din8" class="ASS2"></td>
+	</tr> 
+
+	
+</table>
+</div>
+</body>
+</html>
